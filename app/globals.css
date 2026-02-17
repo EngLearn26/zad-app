@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@theme {
+  --font-amiri: 'Amiri', serif;
+  --font-noto: 'Noto Sans Arabic', sans-serif;
+}
+
+:root {
+  /* Light Mode */
+  --background: #fdfbf7; /* لون الخلفية الفاتح (كريمي قليلاً مثل الورق) */
+  --foreground: #1e293b;
+
+  /* Header & Footer */
+  --header-bg: #fffbeb;
+  --header-border: #fef3c7; /* amber-100 */
+  --footer-bg: #fffbeb; /* amber-50 */
+  
+  /* Primary Colors */
+  --primary: #d97706; /* amber-600 */
+  --primary-hover: #b45309; /* amber-700 */
+  --primary-light: #fff7ed; /* amber-50 */
+  
+  /* Text */
+  --text-main: #1e293b; /* slate-800 */
+  --text-muted: #64748b; /* slate-500 */
+  
+  /* Borders */
+  --border-color: #e2e8f0;
+}
+
+.dark {
+  /* Dark Mode */
+  --background: #0f172a; /* slate-900 */
+  --foreground: #f1f5f9;
+
+  /* Header & Footer */
+  --header-bg: #1e293b; /* slate-800 */
+  --header-border: #334155; /* slate-700 */
+  --footer-bg: #1e293b; /* slate-800 */
+
+  /* Primary Colors */
+  --primary: #fbbf24; /* amber-400 */
+  --primary-hover: #f59e0b; /* amber-500 */
+  --primary-light: #1e293b; /* slate-800 */
+
+  /* Text */
+  --text-main: #f1f5f9; /* slate-100 */
+  --text-muted: #94a3b8; /* slate-400 */
+  
+  /* Borders */
+  --border-color: #334155;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Common Utilities */
+.container-padded {
+  @apply container mx-auto px-4;
+}
+
+.section-card {
+  @apply rounded-2xl p-6 transition-all duration-300 border;
+  background-color: var(--header-bg); /* Use surface color */
+  border-color: var(--border-color);
+}
+/* ---------------------- */
+
+/* دمج محتويات abnothemen.css هنا */
+.hadith-text {
+  font-family: var(--font-amiri);
+  line-height: 2.2;
+}
+
+/* تنسيقات شريط التمرير */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+@keyframes swing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.lantern-swing {
+  animation: swing 4s ease-in-out infinite;
+  transform-origin: top center;
+}
