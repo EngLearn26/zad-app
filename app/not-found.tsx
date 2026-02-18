@@ -1,13 +1,13 @@
-"use client"; // 1. هذا السطر ضروري جداً لأننا نستخدم hooks
+"use client"; 
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FileQuestion, Home, ArrowRight } from "lucide-react";
-import { useTheme } from "@/providers/ThemeProvider"; // 2. استيراد الثيم
+import { useTheme } from "@/providers/ThemeProvider"; 
 
 export default function NotFound() {
   const router = useRouter();
-  const { darkMode } = useTheme(); // 3. استخدام المتغير للتحكم في الوضع
+  const { darkMode } = useTheme(); 
 
   return (
     <div
@@ -15,7 +15,6 @@ export default function NotFound() {
       ${darkMode ? "bg-slate-900 text-slate-100" : "bg-[#fdfbf7] text-slate-800"}
       `}
     >
-      {/* دائرة الخلفية للأيقونة */}
       <div className="relative mb-8">
         <div
           className={`absolute inset-0 rounded-full blur-xl animate-pulse
@@ -38,7 +37,6 @@ export default function NotFound() {
         </div>
       </div>
 
-      {/* العناوين */}
       <h2
         className={`text-4xl md:text-5xl font-bold font-amiri mb-4
         ${darkMode ? "text-slate-100" : "text-slate-800"}
@@ -56,7 +54,6 @@ export default function NotFound() {
         إلى مكان آخر.
       </p>
 
-      {/* أزرار الإجراءات */}
       <div className="flex flex-col sm:flex-row gap-4">
         <Link
           href="/"

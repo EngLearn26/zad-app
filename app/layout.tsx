@@ -5,7 +5,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 
-// تعريف الخطوط
 const amiri = Amiri({
   subsets: ["arabic"],
   weight: ["400", "700"],
@@ -16,7 +15,7 @@ const amiri = Amiri({
 const arefRuqaa = Aref_Ruqaa({
   subsets: ["arabic"],
   weight: ["400", "700"],
-  variable: "--font-aref-ruqaa", // هذا المتغير سنستخدمه في Tailwind
+  variable: "--font-aref-ruqaa", 
   display: "swap",
 });
 
@@ -28,8 +27,13 @@ const notoSans = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "زاد - Zad",
-  description: "خلاصات كتب السلف - رفيقك في رحلة العلم",
+  title: "Zad",
+  description:
+    "منصة زاد التعليمية: رفيقك الأمثل في شهر رمضان المبارك لتدبر القرآن الكريم، ودراسة المتون المشروحة، والاستماع لأفضل البودكاست الإسلامي بوعي وبناء.",
+  icons: {
+    icon: "/logo.svg", 
+    apple: "/logo.svg", 
+  },
 };
 
 export default function RootLayout({
@@ -44,13 +48,10 @@ export default function RootLayout({
         className={`${notoSans.variable} ${amiri.variable} ${arefRuqaa.variable}  font-sans antialiased `}
       >
         <ThemeProvider>
-          {/* هنا يتم وضع الهيدر ليظهر في كل الصفحات */}
           <Header />
 
-          {/* محتوى الصفحة المتغير */}
           <main className="min-h-screen">{children}</main>
 
-          {/* هنا يتم وضع الفوتر ليظهر في كل الصفحات */}
           <Footer />
         </ThemeProvider>
       </body>

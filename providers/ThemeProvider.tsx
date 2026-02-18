@@ -5,18 +5,21 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 type ThemeContextType = {
   darkMode: boolean;
   toggleTheme: () => void;
-  // أضفنا هذه الخصائص الجديدة للتحكم في القائمة الجانبية
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
   setIsSidebarOpen: (value: boolean) => void;
+  closeSidebar: () => void; // إضافة دالة الإغلاق
+  // إضافة هذه الخصائص المفقودة لحل مشكلة Sidebar
+  sidebarContent: ReactNode | null;
+  setSidebarContent: (content: ReactNode | null) => void;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [darkMode, setDarkMode] = useState(true);
-  // حالة القائمة الجانبية الجديدة
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [sidebarContent, setSidebarContent] = useState<ReactNode | null>(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -33,8 +36,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // دالة تبديل القائمة
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+  const closeSidebar = () => setIsSidebarOpen(false); // تعريف دالة الإغلاق
 
   useEffect(() => {
     const root = document.documentElement;
@@ -51,7 +54,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       toggleTheme, 
       isSidebarOpen, 
       toggleSidebar, 
-      setIsSidebarOpen 
+      setIsSidebarOpen,
+      closeSidebar, // تمرير دالة الإغلاق
+      sidebarContent, // تمرير المحتوى
+      setSidebarContent // تمرير دالة تعيين المحتوى
     }}>
       {children}
     </ThemeContext.Provider>

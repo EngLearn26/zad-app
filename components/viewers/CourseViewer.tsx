@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { ScrollText } from "lucide-react"; // تأكد من استيراد الأيقونات المستخدمة
 import IntroSection from "@/components/sections/IntroSection";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CourseInfo, Section } from "@/lib/types"; // استيراد الواجهات
+import { CourseInfo, Section } from "@/lib/types/types"; // استيراد الواجهات
 
 // تعريف الخصائص التي يستقبلها المكون
 interface CourseViewerProps {
