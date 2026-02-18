@@ -39,16 +39,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-
-      <body className={`${notoSans.variable} ${amiri.variable} ${arefRuqaa.variable}  font-sans antialiased `}>
+      <body
+        suppressHydrationWarning={true}
+        className={`${notoSans.variable} ${amiri.variable} ${arefRuqaa.variable}  font-sans antialiased `}
+      >
         <ThemeProvider>
           {/* هنا يتم وضع الهيدر ليظهر في كل الصفحات */}
           <Header />
-          
+
           {/* محتوى الصفحة المتغير */}
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <main className="min-h-screen">{children}</main>
 
           {/* هنا يتم وضع الفوتر ليظهر في كل الصفحات */}
           <Footer />

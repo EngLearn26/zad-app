@@ -67,7 +67,7 @@ export default function IntroSection({
             }`}
           />
 
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+          <h2 className={`text-2xl  md:text-5xl font-bold mb-4 leading-tight ${darkMode? ` text-stone-400`: `text-gray-700`}`}>
             {title}
           </h2>
 

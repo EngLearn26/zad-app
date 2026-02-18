@@ -1,6 +1,4 @@
-import { CourseInfo, Section } from "../types";
-
-
+import { CourseInfo, Section } from "../types/types";
 
 export const infota3zeem: CourseInfo = {
   title: "خلاصة تعظيم العلم",

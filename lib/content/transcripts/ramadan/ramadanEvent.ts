@@ -1,6 +1,4 @@
-
-import { CourseInfo, Section } from "../types";
-
+import { CourseInfo, Section } from "../../../types/types";
 
 export const infoRamadanEvent: CourseInfo = {
   title: "حدث في رمضان",
@@ -9,8 +7,6 @@ export const infoRamadanEvent: CourseInfo = {
     "https://drive.google.com/file/d/1fg3MPMvKGis_-iChOD6RwSVsArEApMgM/view?usp=sharing", // رابط للكتاب على أرشيف الإنترنت
   videoLink: "https://youtu.be/-yt7pEcuDb0?si=e33RGh4egU022r02", // رابط لقراءة مسموعة أو شرح للكتاب
 };
-
-
 
 export const RamadanEvent: Section[] = [
   {
@@ -203,5 +199,5 @@ export const RamadanEvent: Section[] = [
       - ذروة القوة العسكرية للدولة العثمانية.
       - ربط الفتح بالعبادة؛ فكان المجاهدون يرون أن أفضل قيام لليل في العشر الأواخر هو الوقوف على الثغور واقتحام الحصون.
     `,
-  }
-]
+  },
+];

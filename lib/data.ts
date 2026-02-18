@@ -1,15 +1,36 @@
+import { CourseData } from "./types/types";
 
-import { CourseData } from "./types";
-import { infoAbnothemen, Abnothemen } from "./content/othemen";
-import { infoMeditateQuran, MeditateQuran } from "./content/meditateQuran";
-import { inforamadanCouncils, ramadanCouncils } from "./content/ramadanCouncils";
-import { infoRamadanEvent, RamadanEvent } from "./content/RamadanEvent";
-import { infoQuranStages, QuranStages } from "./content/QuranStages";
-import { infota3zeem, ta3zeem } from "./content/ta3zeem";
-import { infoTafsir, Tafsir } from "./content/Tafsir";
+import {
+  infoAbnothemen,
+  Abnothemen,
+} from "./content/transcripts/hadiths/othemen";
+// ----------------
+import {
+  infoMeditateQuran,
+  MeditateQuran,
+} from "./content/transcripts/quran/meditateQuran";
+import {
+  inforamadanCouncils,
+  ramadanCouncils,
+} from "./content/transcripts/ramadan/ramadanCouncils";
+import {
+  infoRamadanEvent,
+  RamadanEvent,
+} from "./content/transcripts/ramadan/ramadanEvent";
+import {
+  infoQuranStages,
+  QuranStages,
+} from "./content/transcripts/quran/quranStages";
+import { infota3zeem, ta3zeem } from "./content/transcripts/ramadan/ta3zeem";
+import { infoTafsir, Tafsir } from "./content/transcripts/quran/Tafsir";
+// --------------------
+import { infodrNaif, drNaif } from "./content/transcripts/podcasts/1/drNaif";
+import { infodrOsman, drOsman } from "./content/transcripts/podcasts/2/osman";
+import { infoother, other } from "./content/transcripts/podcasts/3/other";
+
 
 export const allCourses: Record<string, CourseData> = {
-  "abnothemen": {
+  abnothemen: {
     info: infoAbnothemen,
     content: Abnothemen,
   },
@@ -17,7 +38,7 @@ export const allCourses: Record<string, CourseData> = {
     info: infota3zeem,
     content: ta3zeem,
   },
-  "tafsir": {
+  tafsir: {
     info: infoTafsir,
     content: Tafsir,
   },
@@ -37,4 +58,27 @@ export const allCourses: Record<string, CourseData> = {
     info: infoQuranStages,
     content: QuranStages,
   },
+};
+
+export const allHadithBooks: Record<string, CourseData> = {
+  arbaeen: {
+    info: infoAbnothemen || { title: "الأربعين النووية", desc: "" },
+    content: Abnothemen || [],
+  },
+};
+
+export const allPodcasts: Record<string, CourseData> = {
+  drNaif: {
+    info: infodrNaif,
+    content: drNaif,
+  },
+  drOsman: {
+    info: infodrOsman,
+    content: drOsman,
+  },
+  other: {
+    info: infoother,
+    content: other,
+  },
+  // يمكنك إضافة بودكاست آخر هنا: "quran-stories": { ... }
 };

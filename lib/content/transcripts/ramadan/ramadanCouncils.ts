@@ -1,4 +1,4 @@
-import { CourseInfo, Section } from "../types";
+import { CourseInfo, Section } from "../../../types/types";
 
 export const inforamadanCouncils: CourseInfo = {
   title: "مجالس شهر رمضان",

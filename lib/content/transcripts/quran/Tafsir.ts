@@ -1,5 +1,4 @@
-import { CourseInfo, Section } from "../types";
-
+import { CourseInfo, Section } from "../../../types/types";
 
 export const infoTafsir: CourseInfo = {
   title: "شرح مقدمة في أصول التفسير",

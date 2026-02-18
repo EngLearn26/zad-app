@@ -8,9 +8,9 @@ import {
   Coffee,
   GraduationCap,
   Library,
-  Heart,
 } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
+import SadqaBadge from "@/components/ui/SadqaBadge";
 
 const darkImg = "/landingDark.png";
 const lightImg = "/landing.png";
@@ -18,10 +18,16 @@ const lightImg = "/landing.png";
 // 1. مصفوفة الكتب المشروحة
 const books = [
   {
+    id: 0,
+    title: "القرآن الكريم",
+    author: "وَإِنَّهُ لَتَنزِيلُ رَبِّ الْعَالَمِينَ",
+    link: "/quran",
+  },
+  {
     id: 1,
     title: "شرح الأربعين النووية",
     author: "الشيخ محمد بن صالح العثيمين",
-    link: "/abnothemen",
+    link: "/hadiths/arbaeen",
   },
   {
     id: 2,
@@ -58,6 +64,24 @@ const books = [
     title: "المراحل الثمان لطالب فهم القرآن",
     author: "الشيخ  عصام بن صالح العويد",
     link: "/books/Quran-Stages",
+  },
+  {
+    id: 8,
+    title: "بودكاست فهمك للقرآن",
+    author: "دكتور نايف بن نهار",
+    link: "/podcast/drNaif",
+  },
+  {
+    id: 9,
+    title: "بودكاست حياة الطالب",
+    author: "دكتور عثمان الخميس",
+    link: "/podcast/drOsman",
+  },
+  {
+    id: 10,
+    title: "وعي وبناء",
+    author: "نخبة من العظماء",
+    link: "/podcast/other",
   },
 ];
 
@@ -112,44 +136,7 @@ export default function Home() {
             أثر السنة في حياتك.
           </p>
 
-          <div
-            // إضافة relative و overflow-hidden هنا ضروري جداً لعمل اللمعان
-            className={`group relative overflow-hidden inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-sm font-medium mb-6 transition-all duration-300 hover:scale-[1.02] cursor-default
-  ${
-    darkMode
-      ? "bg-gradient-to-r from-slate-800 to-slate-900 border border-amber-500/30 text-amber-100 shadow-[0_0_15px_-3px_rgba(245,158,11,0.15)]"
-      : "bg-gradient-to-r from-amber-50 to-white border border-amber-200 text-amber-900 shadow-sm shadow-amber-100/50"
-  }`}
-          >
-            {/* تأثير اللمعان الخفيف
-    - في الوضع الداكن: لمعة بيضاء خفيفة (via-white/20)
-    - في الوضع الفاتح: لمعة ذهبية/بنية خفيفة (via-amber-900/10) لتظهر على الخلفية الفاتحة
-  */}
-            <div
-              className={`absolute inset-0 rounded-full translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 
-    bg-gradient-to-r from-transparent ${darkMode ? "via-white/20" : "via-amber-900/10"} to-transparent`}
-            />
-
-            {/* الأيقونة النابضة */}
-            <div className="relative flex items-center justify-center">
-              <span
-                className={`absolute inline-flex h-full w-full rounded-full opacity-40 animate-ping ${darkMode ? "bg-amber-500" : "bg-amber-400"}`}
-              ></span>
-              <Heart
-                size={16}
-                className={`${darkMode ? "text-amber-500 fill-amber-500/20" : "text-amber-600 fill-amber-600/20"} relative z-10`}
-              />
-            </div>
-
-            {/* النص */}
-            <span className="relative z-10 font-amiri tracking-wide">
-              صدقة جارية عن روح{" "}
-              <span className="font-bold border-b border-amber-500/30 pb-0.5">
-                محمد زكريا عبدالرحمن
-              </span>{" "}
-              رحمه الله
-            </span>
-          </div>
+          <SadqaBadge name="محمد زكريا عبدالرحمن" />
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
             <Link

@@ -1,5 +1,5 @@
 import { allCourses } from "@/lib/data";
-import CourseViewer from "@/components/ui/CourseViewer"; // تأكدنا من المسار من صورتك
+import CourseViewer from "@/components/viewers/CourseViewer"; // تأكدنا من المسار من صورتك
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -10,10 +10,13 @@ export async function generateStaticParams() {
 
 // 1. جعل الدالة async
 // 2. تغيير نوع البيانات ليكون Promise
-export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
-  
+export default async function CoursePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   // 3. يجب استخدام await قبل قراءة البيانات
-  const { slug } = await params; 
+  const { slug } = await params;
 
   const courseData = allCourses[slug];
 

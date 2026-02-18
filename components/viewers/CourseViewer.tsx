@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ScrollText} from "lucide-react"; // تأكد من استيراد الأيقونات المستخدمة
-import IntroSection from "@/components/ui/IntroSection";
+import { ScrollText } from "lucide-react"; // تأكد من استيراد الأيقونات المستخدمة
+import IntroSection from "@/components/sections/IntroSection";
 import { useTheme } from "@/providers/ThemeProvider";
-import { CourseInfo, Section } from "@/lib/data"; // استيراد الواجهات
+import { CourseInfo, Section } from "@/lib/types"; // استيراد الواجهات
 
 // تعريف الخصائص التي يستقبلها المكون
 interface CourseViewerProps {
@@ -80,8 +80,8 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                   ? "bg-amber-900/20 text-amber-400 font-bold border-r-4 border-amber-500"
                   : "bg-amber-50 text-amber-900 font-bold border-r-4 border-amber-600 shadow-sm"
                 : darkMode
-                ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
-                : "text-slate-600 hover:bg-white hover:text-amber-800 hover:shadow-sm"
+                  ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                  : "text-slate-600 hover:bg-white hover:text-amber-800 hover:shadow-sm"
             }
           `}
                 >
@@ -93,8 +93,8 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                   ? "bg-amber-500 text-slate-900"
                   : "bg-amber-600 text-white"
                 : darkMode
-                ? "bg-slate-800 text-slate-500"
-                : "bg-slate-100 text-slate-500 group-hover:bg-amber-100 group-hover:text-amber-700"
+                  ? "bg-slate-800 text-slate-500"
+                  : "bg-slate-100 text-slate-500 group-hover:bg-amber-100 group-hover:text-amber-700"
             }
           `}
                   >
@@ -159,9 +159,7 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
 
                 <div
                   className={`prose prose-lg max-w-none leading-loose whitespace-pre-line text-sm md:text-base lg:text-lg
-                  ${
-                    darkMode ? "prose-invert text-slate-300" : "text-slate-700"
-                  }
+                  ${darkMode ? "prose-invert text-slate-300" : "text-slate-700"}
                 `}
                 >
                   {section.content}

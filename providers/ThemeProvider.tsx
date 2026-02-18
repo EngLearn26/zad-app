@@ -14,7 +14,7 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   // حالة القائمة الجانبية الجديدة
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
