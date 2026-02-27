@@ -1,4 +1,3 @@
-// lib/quranApi.ts
 
 export interface Chapter {
   id: number;
@@ -27,7 +26,7 @@ export interface SurahDetail {
 
 const BASE_URL = "https://api.quran.com/api/v4";
 
-// 1. جلب قائمة السور (للـ Sidebar)
+
 export async function getAllSurahs(): Promise<Chapter[]> {
   try {
     const res = await fetch(`${BASE_URL}/chapters?language=ar`, {
@@ -42,14 +41,14 @@ export async function getAllSurahs(): Promise<Chapter[]> {
   }
 }
 
-// 2. جلب السورة كاملة (لصفحة العرض)
+
 export async function getSurah(id: number): Promise<SurahDetail | null> {
   try {
     const [metaRes, versesRes] = await Promise.all([
       fetch(`${BASE_URL}/chapters/${id}?language=ar`, { next: { revalidate: 604800 } }),
-      // هنا نجلب كل الآيات دفعة واحدة (بدون تحديد صفحة)
+      
       fetch(
-        `${BASE_URL}/verses/by_chapter/${id}?language=ar&words=false&fields=text_uthmani,page_number,juz_number&per_page=300`, // 300 تكفي لأغلب السور، البقرة تحتاج أكثر قد تحتاج pagination داخلي لو أردت الدقة المطلقة لكن هذا يكفي للأغلب
+        `${BASE_URL}/verses/by_chapter/${id}?language=ar&words=false&fields=text_uthmani,page_number,juz_number&per_page=300`, 
         { next: { revalidate: 604800 } }
       ),
     ]);

@@ -11,23 +11,20 @@ export default function QuranLayoutContent({
   surahs: Chapter[];
   children: React.ReactNode;
 }) {
-  // استدعاء دالة تغيير حالة القائمة من الـ Provider
+  
   const { setIsSidebarOpen } = useTheme();
 
-  // هذا التأثير يعمل مرة واحدة عند دخول الصفحة ليقوم بفتح القائمة تلقائياً
+  
   useEffect(() => {
     setIsSidebarOpen(true);
   }, [setIsSidebarOpen]);
 
   return (
     <div className="flex min-h-screen relative">
-      {/* Sidebar */}
-      <QuranSidebar surahs={surahs} />
+            <QuranSidebar surahs={surahs} />
 
-      {/* Main Content */}
-      <div className="flex-1 w-full transition-all duration-300">
-        {/* تم حذف الزر العائم (الأصفر) من هنا بناءً على طلبك */}
-
+            <div className="flex-1 w-full transition-all duration-300">
+        
         {children}
       </div>
     </div>

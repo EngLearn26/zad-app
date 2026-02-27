@@ -1,53 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getSurah, SurahDetail } from "@/lib/services/quranApi";
+import { SurahDetail } from "@/lib/services/quranApi";
 import { useTheme } from "@/providers/ThemeProvider";
-import { BookOpen, Loader2 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { BookOpen } from "lucide-react";
 
-export default function ChapterPage() {
+export default function SurahContent({ surah }: { surah: SurahDetail }) {
   const { darkMode } = useTheme();
-  const params = useParams();
-  const chapterId = params?.chapterId ? Number(params.chapterId) : null;
-
-  const [surah, setSurah] = useState<SurahDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!chapterId) return;
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const data = await getSurah(chapterId);
-        setSurah(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [chapterId]);
-
-  if (loading) {
-    return (
-      <div
-        className={`flex items-center justify-center min-h-[50vh] ${darkMode ? "text-amber-500" : "text-amber-700"}`}
-      >
-        <Loader2 className="animate-spin" size={40} />
-      </div>
-    );
-  }
-
-  if (!surah)
-    return (
-      <div className="text-center p-10 font-bold">لم يتم العثور على السورة</div>
-    );
 
   const startPage = surah.verses[0]?.page_number;
   const startJuz = surah.verses[0]?.juz_number;
-
   const showBismillahHeader = surah.meta.id !== 1 && surah.meta.id !== 9;
 
   return (

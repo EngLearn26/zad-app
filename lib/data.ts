@@ -4,7 +4,7 @@ import {
   infoAbnothemen,
   Abnothemen,
 } from "./content/transcripts/hadiths/othemen";
-// ----------------
+
 import {
   infoMeditateQuran,
   MeditateQuran,
@@ -23,10 +23,11 @@ import {
 } from "./content/transcripts/quran/quranStages";
 import { infota3zeem, ta3zeem } from "./content/transcripts/ramadan/ta3zeem";
 import { infoTafsir, Tafsir } from "./content/transcripts/quran/Tafsir";
-// --------------------
+
 import { infodrNaif, drNaif } from "./content/transcripts/podcasts/1/drNaif";
 import { infodrOsman, drOsman } from "./content/transcripts/podcasts/2/osman";
 import { infoother, other } from "./content/transcripts/podcasts/3/other";
+import { infosahm, sahm } from "./content/transcripts/podcasts/4/sahm";
 
 
 export const allCourses: Record<string, CourseData> = {
@@ -80,5 +81,8 @@ export const allPodcasts: Record<string, CourseData> = {
     info: infoother,
     content: other,
   },
-  // يمكنك إضافة بودكاست آخر هنا: "quran-stories": { ... }
+  sahm: {
+    info: infosahm,
+    content: sahm,
+  },
 };

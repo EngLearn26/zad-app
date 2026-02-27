@@ -1,4 +1,3 @@
-// lib/content/podcastSeerah.ts
 import { CourseInfo, Section } from "@/lib/types/types";
 import { ep1, ep2, ep3, ep4 } from "./ep1";
 export const infodrNaif: CourseInfo = {

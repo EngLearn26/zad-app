@@ -8,8 +8,7 @@ type ThemeContextType = {
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
   setIsSidebarOpen: (value: boolean) => void;
-  closeSidebar: () => void; // إضافة دالة الإغلاق
-  // إضافة هذه الخصائص المفقودة لحل مشكلة Sidebar
+  closeSidebar: () => void;
   sidebarContent: ReactNode | null;
   setSidebarContent: (content: ReactNode | null) => void;
 };
@@ -18,26 +17,16 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [darkMode, setDarkMode] = useState(true);
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [sidebarContent, setSidebarContent] = useState<ReactNode | null>(null);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-    }
-  }, []);
-
   const toggleTheme = () => {
-    setDarkMode((prev) => {
-      const newMode = !prev;
-      localStorage.setItem("theme", newMode ? "dark" : "light");
-      return newMode;
-    });
+    setDarkMode((prev) => !prev);
   };
 
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
-  const closeSidebar = () => setIsSidebarOpen(false); // تعريف دالة الإغلاق
+  const closeSidebar = () => setIsSidebarOpen(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -55,9 +44,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       isSidebarOpen, 
       toggleSidebar, 
       setIsSidebarOpen,
-      closeSidebar, // تمرير دالة الإغلاق
-      sidebarContent, // تمرير المحتوى
-      setSidebarContent // تمرير دالة تعيين المحتوى
+      closeSidebar,
+      sidebarContent,
+      setSidebarContent
     }}>
       {children}
     </ThemeContext.Provider>

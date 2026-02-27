@@ -7,8 +7,6 @@ import {
   Bookmark,
   CheckCircle2,
   Circle,
-  Menu,
-  X,
 } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
 import IntroSection from "@/components/sections/IntroSection";
@@ -16,8 +14,8 @@ import { CourseData } from "@/lib/types/types";
 
 interface HadithViewerProps {
   data: CourseData;
-  storageKey: string; // مفتاح فريد لحفظ التقدم لكل كتاب
-  sharhLabel?: string; // عنوان الشرح (مثلاً: شرح ابن عثيمين)
+  storageKey: string; 
+  sharhLabel?: string; 
 }
 
 export default function HadithViewer({
@@ -32,8 +30,8 @@ export default function HadithViewer({
   const [readHadiths, setReadHadiths] = useState<string[]>([]);
 
   useEffect(() => {
-    // نستخدم setTimeout لتجنب تحذير "synchronous update"
-    // هذا يؤخر التحديث أجزاء من الثانية ليتم بعد انتهاء الرسم الأول
+    
+    
     const timer = setTimeout(() => {
       try {
         const savedReads = localStorage.getItem(storageKey);
@@ -42,16 +40,16 @@ export default function HadithViewer({
         }
       } catch (error) {
         console.error("Error parsing saved reads:", error);
-        // في حال وجود بيانات تالفة، نقوم بتنظيفها
+        
         localStorage.removeItem(storageKey);
       }
     }, 0);
 
-    // تنظيف التايمر إذا تم إلغاء المكون
+    
     return () => clearTimeout(timer);
   }, [storageKey]);
 
-  // حفظ القراءة
+  
   const toggleRead = (id: string) => {
     let newReads;
     if (readHadiths.includes(id)) {
@@ -85,8 +83,7 @@ export default function HadithViewer({
       }`}
     >
       <div className="container mx-auto px-4 py-8 flex gap-8 items-start relative">
-        {/* --- القائمة الجانبية --- */}
-        <aside
+                <aside
           className={`
           fixed top-0 right-0 h-full w-80 z-50 transform transition-transform duration-300 ease-in-out pt-24 lg:pt-24
           ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
@@ -162,8 +159,7 @@ export default function HadithViewer({
           />
         )}
 
-        {/* --- المحتوى الرئيسي --- */}
-        <main className="flex-1 min-w-0 pb-20 lg:p-12">
+                <main className="flex-1 min-w-0 pb-20 lg:p-12">
           <div className="space-y-12">
             <IntroSection {...info} />
 
@@ -184,8 +180,7 @@ export default function HadithViewer({
                   ${isRead ? "opacity-75 grayscale-[0.5]" : ""} 
                 `}
                 >
-                  {/* Card Header */}
-                  <div
+                                    <div
                     className={`p-6 md:p-8 border-b flex flex-wrap items-center justify-between gap-4 
                     ${darkMode ? "bg-slate-800/80 border-slate-700" : "bg-gradient-to-r from-amber-50/50 to-white border-amber-100"}`}
                   >
@@ -236,8 +231,7 @@ export default function HadithViewer({
                     </button>
                   </div>
 
-                  {/* Card Body */}
-                  <div className="p-6 md:p-8 space-y-10">
+                                    <div className="p-6 md:p-8 space-y-10">
                     {item.type === "intro" ? (
                       <div
                         className={`prose prose-lg max-w-none leading-loose font-amiri text-lg md:text-xl ${darkMode ? "text-slate-300" : "text-slate-700"}`}

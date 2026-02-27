@@ -20,7 +20,6 @@ export default function IntroSection({
   const { darkMode } = useTheme();
   const router = useRouter();
 
-  // استخراج ID وإنشاء رابط بدون تشغيل تلقائي
   const getEmbedUrl = (url: string) => {
     if (!url) return "";
 
@@ -50,7 +49,7 @@ export default function IntroSection({
           رجوع
         </button>
       </div>
-      {/* 1. بطاقة العنوان */}
+
       <div
         className={`rounded-3xl p-8 text-center relative overflow-hidden ${
           darkMode ? "bg-slate-800/40" : "bg-amber-100/50"
@@ -100,7 +99,6 @@ export default function IntroSection({
         </div>
       </div>
 
-      {/* 2. الفيديو */}
       {videoLink && (
         <div
           className={`w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border-4 ${

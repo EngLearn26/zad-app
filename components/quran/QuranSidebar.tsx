@@ -2,12 +2,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Search, ScrollText, X } from "lucide-react";
-import { useTheme } from "@/providers/ThemeProvider"; // استيراد الهوك
+import { useTheme } from "@/providers/ThemeProvider"; 
 import { Chapter } from "@/lib/services/quranApi";
 import { useParams } from "next/navigation";
 
 export default function QuranSidebar({ surahs }: { surahs: Chapter[] }) {
-  // استخدام الحالة من الـ Provider
+  
   const { darkMode, isSidebarOpen, setIsSidebarOpen } = useTheme();
   const [searchTerm, setSearchTerm] = useState("");
   const params = useParams();
@@ -20,8 +20,7 @@ export default function QuranSidebar({ surahs }: { surahs: Chapter[] }) {
 
   return (
     <>
-      {/* خلفية معتمة للموبايل */}
-      {isSidebarOpen && (
+            {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm transition-opacity lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
@@ -33,16 +32,14 @@ export default function QuranSidebar({ surahs }: { surahs: Chapter[] }) {
         ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
         ${darkMode ? "bg-slate-900 border-slate-800" : "bg-[#FFFDF6] border-amber-100"}`}
       >
-        {/* زر الإغلاق */}
-        <button
+                <button
           onClick={() => setIsSidebarOpen(false)}
           className={`absolute top-4 left-4 p-2 rounded-full ${darkMode ? "hover:bg-slate-800 text-slate-400" : "hover:bg-amber-100 text-amber-800"}`}
         >
           <X size={24} />
         </button>
 
-        {/* رأس القائمة */}
-        <div className="p-4 mt-8 border-b border-gray-100/10 shrink-0">
+                <div className="p-4 mt-8 border-b border-gray-100/10 shrink-0">
           <div
             className={`flex items-center gap-2 mb-4 px-2 ${darkMode ? "text-amber-500" : "text-amber-700"}`}
           >
@@ -70,12 +67,11 @@ export default function QuranSidebar({ surahs }: { surahs: Chapter[] }) {
           </div>
         </div>
 
-        {/* القائمة */}
-        <nav className="flex-1 overflow-y-auto p-3 space-y-1 no-scrollbar">
+                <nav className="flex-1 overflow-y-auto p-3 space-y-1 no-scrollbar">
           {filteredSurahs.map((surah) => (
             <Link
               key={surah.id}
-              href={`/quran/${surah.id}`} // رابط السورة الكاملة
+              href={`/quran/${surah.id}`} 
               onClick={() => setIsSidebarOpen(false)}
               className={`flex items-center justify-between p-3 rounded-xl transition-all hover:scale-[1.02] group
               ${

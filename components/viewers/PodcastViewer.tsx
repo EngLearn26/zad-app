@@ -59,7 +59,6 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
       }`}
     >
       <div className="container mx-auto px-4 py-8 flex gap-8 items-start relative">
-        {/* --- القائمة الجانبية (لم تتغير) --- */}
         <aside
           className={`
           fixed top-0 right-0 h-full w-80 z-50 transform transition-transform duration-300 ease-in-out pt-24 lg:pt-24
@@ -111,7 +110,6 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
           />
         )}
 
-        {/* --- المحتوى الرئيسي --- */}
         <main className="flex-1 min-w-0 pb-20 lg:p-12">
           <div className="space-y-12">
             <IntroSection
@@ -129,14 +127,13 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
                   <article
                     id={item.id}
                     key={item.id}
-                    className={`rounded-2xl  transition-all duration-300 border
+                    className={`rounded-2xl transition-all duration-300 border
                     ${
                       darkMode
                         ? "bg-slate-800/40 border-slate-700 hover:border-slate-600"
                         : "bg-white border-amber-100 shadow-sm hover:shadow-md"
                     }`}
                   >
-                    {/* رأس البطاقة */}
                     <div
                       className={`p-5 flex items-center justify-between gap-4 cursor-pointer`}
                       onClick={() => toggleCard(item.id)}
@@ -150,7 +147,7 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
                         </div>
                         <div>
                           <h3
-                            className={`text-lg md:text-xl font-bold font-amiri ${darkMode ? "text-slate-200" : "text-slate-800"}`}
+                            className={`text-sm md:text-xl font-bold font-amiri ${darkMode ? "text-slate-200" : "text-slate-800"}`}
                           >
                             {item.title}
                           </h3>
@@ -200,19 +197,16 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
                       </div>
                     </div>
 
-                    {/* المحتوى القابل للطي */}
                     <div
                       className={`overflow-hidden transition-[max-height] duration-700 ease-in-out
-                      ${isExpanded ? "max-h-[10000px] opacity-100" : "max-h-0 opacity-0"}`}
+                      ${isExpanded ? "max-h-2500 opacity-100" : "max-h-0 opacity-0"}`}
                     >
                       <div
                         className={`p-6 md:p-8 pt-2 border-t ${darkMode ? "border-slate-700" : "border-amber-50"}`}
                       >
-                        {/* هنا يبدأ سحر ReactMarkdown المخصص */}
                         <ReactMarkdown
                           components={{
-                            // 1. تخصيص العناوين (h3 مثل: الموجه الأول...)
-                            h3: ({ node, ...props }) => (
+                            h3: ({ ...props }) => (
                               <h3
                                 className={`text-xl md:text-2xl font-bold font-amiri mt-10 mb-4 pb-2 border-b
                                 ${
@@ -223,31 +217,24 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
                                 {...props}
                               />
                             ),
-
-                            // 2. تخصيص الفقرات (مسافة بين السطور)
-                            p: ({ node, ...props }) => (
+                            p: ({ ...props }) => (
                               <p
                                 className={`text-base md:text-lg leading-loose mb-6 font-amiri text-justify
                                 ${darkMode ? "text-slate-300" : "text-slate-700"}`}
                                 {...props}
                               />
                             ),
-
-                            // 3. تخصيص القوائم النقطية
-                            ul: ({ node, ...props }) => (
+                            ul: ({ ...props }) => (
                               <ul
                                 className="space-y-4 my-6 list-none pr-0"
                                 {...props}
                               />
                             ),
-
-                            // 4. تخصيص عناصر القائمة (li)
-                            li: ({ node, ...props }) => (
+                            li: ({ ...props }) => (
                               <li
                                 className={`relative pr-6 text-base md:text-lg leading-relaxed
                                 ${darkMode ? "text-slate-300" : "text-slate-700"}`}
                               >
-                                {/* نقطة القائمة المخصصة */}
                                 <span
                                   className={`absolute top-2.5 right-0 w-2 h-2 rounded-full 
                                   ${darkMode ? "bg-amber-500" : "bg-amber-600"}`}
@@ -255,9 +242,7 @@ export default function PodcastViewer({ data }: PodcastViewerProps) {
                                 <span {...props} />
                               </li>
                             ),
-
-                            // 5. تخصيص النص الغامق (strong) - النمذجة وغيرها
-                            strong: ({ node, ...props }) => (
+                            strong: ({ ...props }) => (
                               <strong
                                 className={`font-bold mx-1 px-1 rounded
                                 ${

@@ -179,3 +179,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 >>>>>>> 7eea8b6 (Initial commit)
+
+certificates

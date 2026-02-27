@@ -43,10 +43,10 @@ export const other: Section[] = [
     content: ep6,
     videoLink: "https://www.youtube.com/watch?v=M2L44bByu1o",
   },
-  // {
-  //   id: "",
-  //   title: "",
-  //   content: ep,
-  //   videoLink: "",
-  // },
+  
+  
+  
+  
+  
+  
 ];

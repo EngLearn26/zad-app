@@ -2,7 +2,7 @@
 export interface Section {
   id: string;
   title: string;
-  type?: string; // "intro", "hadith", "maqid"
+  type?: string; 
   content?: string;
   matn?: string;
   fawaid?: string[];

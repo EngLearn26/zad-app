@@ -9,16 +9,14 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* الخلفية المعتمة عند فتح القائمة في الموبايل */}
-      {isSidebarOpen && (
+            {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-30 backdrop-blur-sm transition-opacity"
           onClick={closeSidebar}
         />
       )}
 
-      {/* الشريط الجانبي نفسه */}
-      <aside
+            <aside
         className={`
           fixed top-0 right-0 h-full w-80 z-40 transform transition-transform duration-300 ease-in-out pt-24 pb-8 px-4
           ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
@@ -26,8 +24,7 @@ export default function Sidebar() {
           shadow-2xl backdrop-blur-lg overflow-y-auto no-scrollbar
         `}
       >
-        {/* إذا كان هناك محتوى مخصص (مثل الفهرس) نعرضه، وإلا نعرض القائمة الرئيسية */}
-        {sidebarContent ? (
+                {sidebarContent ? (
           sidebarContent
         ) : (
           <div className="space-y-4">
