@@ -46,7 +46,8 @@ export default function Footer() {
             Osman
           </a>
 
-          <span>{"< All Copy Rights Reserved @2026 >"}</span>
+          <span className="hidden sm:inline">{"< All Copy Rights Reserved @2026 >"}</span>
+          <span className="sm:hidden">{"< / >"}</span>
         </div>
       </div>
     </footer>

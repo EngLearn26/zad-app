@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BookOpen, Calendar } from "lucide-react";
+// قمنا بإضافة أيقونة Download هنا
+import { BookOpen, Calendar, Download } from "lucide-react"; 
 import SadqaBadge from "@/components/ui/SadqaBadge";
 
 import { Quotes } from "@/lib/dailyQuotes";
@@ -83,13 +84,29 @@ export default function HeroSection({ darkMode }: { darkMode: boolean }) {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 md:pt-4">
+          {/* الزر الأساسي */}
           <Link
-            href="/plan"
+            href="/hadiths/arbaeen"
             className="group px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-2xl shadow-lg hover:shadow-amber-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 font-bold text-base md:text-lg w-full sm:w-auto"
           >
             <BookOpen size={20} className="md:w-6 md:h-6" />
-            <span>البرنامج اليومي للصائم</span>
+            <span>الأربعين النووية لإبن عثيمين</span>
           </Link>
+
+          {/* الزر الجديد: تحميل تطبيق منطوق */}
+          <a
+            href="https://play.google.com/store/apps/details?id=ca.basira.mantooqapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group px-6 md:px-8 py-3 md:py-4 rounded-2xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 font-bold text-base md:text-lg w-full sm:w-auto border-2 ${
+              darkMode
+                ? "border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700/80"
+                : "border-amber-200 bg-amber-50/60 text-amber-800 hover:bg-amber-100/80"
+            }`}
+          >
+            <Download size={20} className="md:w-6 md:h-6" />
+            <span>تحميل تطبيق منطوق</span>
+          </a>
         </div>
       </div>
 
