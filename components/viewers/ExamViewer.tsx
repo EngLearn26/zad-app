@@ -10,16 +10,27 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
-import { ExamData } from "@/lib/types/types";
+import { ExamData, Section } from "@/lib/types/types";
+import ExamSidebar from "@/components/viewers/ExamSidebar";
 
 interface ExamViewerProps {
   data: ExamData;
+  hadithSections?: Section[];
+  bookSlug?: string;
+  currentHadithId?: string;
+  examSlugs?: Record<string, string>;
 }
 
 type ExamState = "taking" | "submitted";
 
-export default function ExamViewer({ data }: ExamViewerProps) {
-  const { darkMode } = useTheme();
+export default function ExamViewer({
+  data,
+  hadithSections,
+  bookSlug,
+  currentHadithId,
+  examSlugs,
+}: ExamViewerProps) {
+  const { darkMode, isSidebarOpen, setIsSidebarOpen } = useTheme();
   const { questions, title, desc } = data;
   const totalQuestions = questions.length;
 
@@ -29,6 +40,13 @@ export default function ExamViewer({ data }: ExamViewerProps) {
 
   const currentQuestion = questions[currentIndex];
   const answeredCount = Object.keys(answers).length;
+
+  const hasSidebar = !!(
+    hadithSections &&
+    bookSlug &&
+    currentHadithId &&
+    examSlugs
+  );
 
   const correctCount = useMemo(() => {
     if (examState !== "submitted") return 0;
@@ -71,6 +89,33 @@ export default function ExamViewer({ data }: ExamViewerProps) {
         darkMode ? "bg-slate-900 text-slate-100" : "bg-[#FFF7EA] text-slate-800"
       }`}
     >
+      {hasSidebar && (
+        <>
+          <aside
+            className={`
+              fixed top-0 right-0 h-full w-80 z-50 transform transition-transform duration-300 ease-in-out pt-24 lg:pt-24
+              ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
+              ${darkMode ? "bg-slate-900/95 border-l border-slate-800" : "bg-[#FFFDF6]/95 border-l border-amber-100"}
+              shadow-2xl backdrop-blur-lg overflow-y-auto no-scrollbar
+            `}
+          >
+            <ExamSidebar
+              sections={hadithSections!}
+              bookSlug={bookSlug!}
+              currentHadithId={currentHadithId!}
+              examSlugs={examSlugs!}
+            />
+          </aside>
+
+          {isSidebarOpen && (
+            <div
+              className="fixed inset-0 bg-black/60 z-30 backdrop-blur-sm"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
+        </>
+      )}
+
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <ExamHeader title={title} desc={desc} darkMode={darkMode} />
 
