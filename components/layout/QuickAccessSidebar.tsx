@@ -17,7 +17,7 @@ export default function QuickAccessSidebar({ isOpen, onClose }: QuickAccessSideb
   const pathname = usePathname();
 
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
-    "القرآن الكريم وعلومه": false,
+    "القرآن الكريم وعلومه": true,
   });
 
   const toggleCategory = (title: string) => {
