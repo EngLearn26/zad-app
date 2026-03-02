@@ -10,6 +10,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useSidebar } from "@/providers/SidebarProvider";
 import { ExamData, Section } from "@/lib/types/types";
 import ExamSidebar from "@/components/viewers/ExamSidebar";
 
@@ -30,7 +31,8 @@ export default function ExamViewer({
   currentHadithId,
   examSlugs,
 }: ExamViewerProps) {
-  const { darkMode, isSidebarOpen, setIsSidebarOpen } = useTheme();
+  const { darkMode } = useTheme();
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
   const { questions, title, desc } = data;
   const totalQuestions = questions.length;
 

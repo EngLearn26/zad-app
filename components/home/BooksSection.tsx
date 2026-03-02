@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Library, BookOpen, ChevronDown, ChevronUp } from "lucide-react";
-import { sectionsData } from "@/lib/contentData"; 
+import { sectionsData } from "@/lib/contentData";
+import { useTheme } from "@/providers/ThemeProvider";
 
 const BookCard = ({
   book,
@@ -62,12 +63,13 @@ const BookCard = ({
   </div>
 );
 
-export default function BooksSection({ darkMode }: { darkMode: boolean }) {
+export default function BooksSection() {
+  const { darkMode } = useTheme();
   const [openSections, setOpenSections] = useState<string[]>([]);
 
   const toggleSection = (id: string) => {
     setOpenSections((prev) =>
-      prev.includes(id) ? prev.filter((sec) => sec !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((sec) => sec !== id) : [...prev, id],
     );
   };
 
@@ -93,9 +95,7 @@ export default function BooksSection({ darkMode }: { darkMode: boolean }) {
               <button
                 onClick={() => toggleSection(section.id)}
                 className={`w-full flex items-center justify-between p-6 text-right transition-colors ${
-                  darkMode
-                    ? "hover:bg-slate-700/50"
-                    : "hover:bg-amber-50/50"
+                  darkMode ? "hover:bg-slate-700/50" : "hover:bg-amber-50/50"
                 }`}
               >
                 <div className="flex items-center gap-4">

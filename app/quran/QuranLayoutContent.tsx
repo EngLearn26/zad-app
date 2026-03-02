@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import QuranSidebar from "@/components/quran/QuranSidebar";
 import { Chapter } from "@/lib/services/quranApi";
-import { useTheme } from "@/providers/ThemeProvider";
+import { useSidebar } from "@/providers/SidebarProvider";
 
 export default function QuranLayoutContent({
   surahs,
@@ -11,20 +11,17 @@ export default function QuranLayoutContent({
   surahs: Chapter[];
   children: React.ReactNode;
 }) {
-  
-  const { setIsSidebarOpen } = useTheme();
+  const { setIsSidebarOpen } = useSidebar();
 
-  
   useEffect(() => {
     setIsSidebarOpen(true);
   }, [setIsSidebarOpen]);
 
   return (
     <div className="flex min-h-screen relative">
-            <QuranSidebar surahs={surahs} />
+      <QuranSidebar surahs={surahs} />
 
-            <div className="flex-1 w-full transition-all duration-300">
-        
+      <div className="flex-1 w-full transition-all duration-300">
         {children}
       </div>
     </div>

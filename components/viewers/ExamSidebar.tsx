@@ -3,6 +3,7 @@
 import { ScrollText, ClipboardList, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useSidebar } from "@/providers/SidebarProvider";
 import { Section } from "@/lib/types/types";
 
 interface ExamSidebarProps {
@@ -18,7 +19,8 @@ export default function ExamSidebar({
   currentHadithId,
   examSlugs,
 }: ExamSidebarProps) {
-  const { darkMode, closeSidebar } = useTheme();
+  const { darkMode } = useTheme();
+  const { closeSidebar } = useSidebar();
 
   return (
     <div className="p-4">

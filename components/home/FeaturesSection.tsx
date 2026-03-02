@@ -1,5 +1,7 @@
+"use client";
 
 import { Zap, GraduationCap, Coffee } from "lucide-react";
+import { useTheme } from "@/providers/ThemeProvider";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -42,7 +44,9 @@ const FeatureCard = ({ icon, title, desc, darkMode }: FeatureCardProps) => (
   </div>
 );
 
-export default function FeaturesSection({ darkMode }: { darkMode: boolean }) {
+export default function FeaturesSection() {
+  const { darkMode } = useTheme();
+
   return (
     <section
       className={`py-20 px-6 lg:px-20 relative z-10 ${

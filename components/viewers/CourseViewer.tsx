@@ -1,31 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ScrollText, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
+import {
+  ScrollText,
+  ChevronDown,
+  ChevronUp,
+  PlayCircle,
+  Podcast,
+} from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import IntroSection from "@/components/sections/IntroSection";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useSidebar } from "@/providers/SidebarProvider";
 import { CourseInfo, Section } from "@/lib/types/types";
 
 interface CourseViewerProps {
   info: CourseInfo;
   content: Section[];
+  variant?: "course" | "podcast";
 }
 
-export default function CourseViewer({ info, content }: CourseViewerProps) {
-  const { darkMode, isSidebarOpen, setIsSidebarOpen } = useTheme();
+export default function CourseViewer({
+  info,
+  content,
+  variant = "course",
+}: CourseViewerProps) {
+  const { darkMode } = useTheme();
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
   const [activeSection, setActiveSection] = useState("intro");
   const [expandedCards, setExpandedCards] = useState<string[]>([]);
+  const [currentVideo, setCurrentVideo] = useState<string | undefined>(
+    variant === "podcast" ? info.videoLink : undefined,
+  );
 
-  const bookData = content;
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const isPodcast = variant === "podcast";
 
   const toggleCard = (id: string) => {
     setExpandedCards((prev) =>
@@ -33,13 +41,30 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
     );
   };
 
+  const handlePlayVideo = (link?: string) => {
+    if (link && isPodcast) {
+      setCurrentVideo(link);
+      window.scrollTo({ top: 500, behavior: "smooth" });
+    }
+  };
+
   const scrollToSection = (id: string) => {
-    setExpandedCards((prev) => (!prev.includes(id) ? [...prev, id] : prev));
+    if (!isPodcast) {
+      setExpandedCards((prev) => (!prev.includes(id) ? [...prev, id] : prev));
+    }
 
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveSection(id);
+      if (isPodcast) {
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      } else {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        setActiveSection(id);
+      }
       setIsSidebarOpen(false);
     }
   };
@@ -48,23 +73,32 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
     <div
       dir="rtl"
       className={`min-h-screen transition-colors duration-300 font-sans ${
-        darkMode ? "bg-slate-900 text-slate-100" : "bg-[#fdfbf7] text-slate-800"
+        isPodcast ? "selection:bg-amber-200 selection:text-amber-900" : ""
+      } ${
+        darkMode
+          ? "bg-slate-900 text-slate-100"
+          : isPodcast
+            ? "bg-[#FFF7EA] text-slate-800"
+            : "bg-[#fdfbf7] text-slate-800"
       }`}
     >
-      <div className="container mx-auto px-4 py-8 flex gap-8 items-start relative ">
+      <div className="container mx-auto px-4 py-8 flex gap-8 items-start relative">
         <aside
-          className={` 
+          className={`
           fixed top-0 right-0 h-full w-80 z-50 transform transition-transform duration-300 ease-in-out
+          ${isPodcast ? "pt-24 lg:pt-24" : ""}
           ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}
           ${
             darkMode
               ? "bg-slate-900/95 border-l border-slate-800"
-              : "bg-white/95 border-l border-amber-100"
+              : isPodcast
+                ? "bg-[#FFFDF6]/95 border-l border-amber-100"
+                : "bg-white/95 border-l border-amber-100"
           }
           shadow-2xl backdrop-blur-lg overflow-y-auto no-scrollbar
         `}
         >
-          <div className="p-4 pt-20 lg:pt-6">
+          <div className={`p-4 ${isPodcast ? "" : "pt-20 lg:pt-6"}`}>
             <div
               className={`flex items-center gap-2 mb-6 px-2 ${
                 darkMode ? "text-amber-500" : "text-amber-700"
@@ -72,18 +106,18 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
             >
               <ScrollText size={18} />
               <h3 className="font-bold text-sm uppercase tracking-wider">
-                فهرس المحتوى
+                {isPodcast ? "قائمة الحلقات" : "فهرس المحتوى"}
               </h3>
             </div>
 
             <nav className="space-y-1.5">
-              {bookData.map((section) => (
+              {content.map((section, index) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
                   className={`w-full text-right px-4 py-3 rounded-lg text-sm transition-all duration-200 flex items-center gap-3 group
             ${
-              activeSection === section.id
+              !isPodcast && activeSection === section.id
                 ? darkMode
                   ? "bg-amber-900/20 text-amber-400 font-bold border-r-4 border-amber-500"
                   : "bg-amber-50 text-amber-900 font-bold border-r-4 border-amber-600 shadow-sm"
@@ -96,7 +130,7 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                   <span
                     className={`shrink-0 w-6 h-6 flex items-center justify-center rounded text-[10px] font-bold
             ${
-              activeSection === section.id
+              !isPodcast && activeSection === section.id
                 ? darkMode
                   ? "bg-amber-500 text-slate-900"
                   : "bg-amber-600 text-white"
@@ -106,9 +140,11 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
             }
           `}
                   >
-                    {section.id === "intro" || section.id === "1"
-                      ? "م"
-                      : section.id.replace("m", "").replace("h", "")}
+                    {isPodcast
+                      ? index + 1
+                      : section.id === "intro" || section.id === "1"
+                        ? "م"
+                        : section.id.replace("m", "").replace("h", "")}
                   </span>
                   <span className="truncate font-amiri text-base">
                     {section.title}
@@ -121,24 +157,35 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
 
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/60 z-30  backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 z-30 backdrop-blur-sm"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
 
-        <main className="flex-1 min-w-0 pb-16 lg:p-15">
-          <div className="space-y-8">
-            <IntroSection {...info} />
+        <main
+          className={`flex-1 min-w-0 ${isPodcast ? "pb-20 lg:p-12" : "pb-16 lg:p-15"}`}
+        >
+          <div className={isPodcast ? "space-y-12" : "space-y-8"}>
+            {isPodcast ? (
+              <IntroSection
+                title={info.title}
+                desc={info.desc}
+                videoLink={currentVideo}
+                bookLink={info.bookLink}
+              />
+            ) : (
+              <IntroSection {...info} />
+            )}
 
             <div className="grid grid-cols-1 gap-6">
-              {bookData.map((section, index) => {
+              {content.map((section, index) => {
                 const isExpanded = expandedCards.includes(section.id);
 
                 return (
                   <article
                     id={section.id}
                     key={section.id}
-                    className={`scroll-mt-24 rounded-2xl transition-all duration-300 border
+                    className={`${!isPodcast ? "scroll-mt-24" : ""} rounded-2xl transition-all duration-300 border
                     ${
                       darkMode
                         ? "bg-slate-800/40 border-slate-700 hover:border-slate-600"
@@ -150,30 +197,78 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                       onClick={() => toggleCard(section.id)}
                     >
                       <div className="flex items-center gap-4 flex-1">
-                        <span
-                          className={`shrink-0 w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold mt-1
-                          ${
-                            darkMode
-                              ? "bg-slate-700 text-amber-500"
-                              : "bg-amber-100 text-amber-800"
-                          }
-                        `}
-                        >
-                          {index === 0 ? "م" : index}
-                        </span>
+                        {isPodcast ? (
+                          <div
+                            className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0
+                            ${darkMode ? "bg-slate-700 text-amber-500" : "bg-amber-50 text-amber-600"}`}
+                          >
+                            <Podcast size={24} />
+                          </div>
+                        ) : (
+                          <span
+                            className={`shrink-0 w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold mt-1
+                            ${
+                              darkMode
+                                ? "bg-slate-700 text-amber-500"
+                                : "bg-amber-100 text-amber-800"
+                            }
+                          `}
+                          >
+                            {index === 0 ? "م" : index}
+                          </span>
+                        )}
                         <div>
                           <h3
-                            className={`text-lg md:text-xl lg:text-2xl font-bold ${
-                              darkMode ? "text-amber-400" : "text-amber-800"
-                            }`}
+                            className={`${isPodcast ? "text-sm md:text-xl" : "text-lg md:text-xl lg:text-2xl"} font-bold ${
+                              isPodcast
+                                ? darkMode
+                                  ? "text-slate-200"
+                                  : "text-slate-800"
+                                : darkMode
+                                  ? "text-amber-400"
+                                  : "text-amber-800"
+                            } ${isPodcast ? "font-amiri" : ""}`}
                           >
                             {section.title}
                           </h3>
+                          {isPodcast && (
+                            <p
+                              className={`text-xs mt-1 ${darkMode ? "text-slate-500" : "text-slate-400"}`}
+                            >
+                              الحلقة رقم {index + 1}
+                            </p>
+                          )}
                         </div>
                       </div>
 
                       <div className="flex items-center gap-2">
+                        {isPodcast && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePlayVideo(section.videoLink);
+                            }}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all
+                            ${
+                              darkMode
+                                ? "bg-amber-600 hover:bg-amber-500 text-white"
+                                : "bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                            }`}
+                          >
+                            <PlayCircle size={18} />
+                            <span className="hidden sm:inline">تشغيل</span>
+                          </button>
+                        )}
+
                         <button
+                          onClick={
+                            isPodcast
+                              ? (e) => {
+                                  e.stopPropagation();
+                                  toggleCard(section.id);
+                                }
+                              : undefined
+                          }
                           className={`p-2 rounded-full transition-colors
                           ${
                             darkMode
@@ -194,7 +289,9 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                       className={`overflow-hidden transition-[max-height] duration-700 ease-in-out
                       ${
                         isExpanded
-                          ? "max-h-[5000px] opacity-100"
+                          ? isPodcast
+                            ? "max-h-2500 opacity-100"
+                            : "max-h-[5000px] opacity-100"
                           : "max-h-0 opacity-0"
                       }`}
                     >
@@ -239,7 +336,7 @@ export default function CourseViewer({ info, content }: CourseViewerProps) {
                                 }`}
                               >
                                 <span
-                                  className={`absolute top-2.5 right-0 w-2 h-2 rounded-full 
+                                  className={`absolute top-2.5 right-0 w-2 h-2 rounded-full
                                   ${darkMode ? "bg-amber-500" : "bg-amber-600"}`}
                                 />
                                 <span {...props} />

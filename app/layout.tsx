@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { SidebarProvider } from "@/providers/SidebarProvider";
 
 const amiri = Amiri({
   subsets: ["arabic"],
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     title: "زاد",
   },
   verification: {
-    google: 'EK88A_02hP3bsgTaEERUyy_hKzASQFGRz2Df3h5L_wE',
+    google: "EK88A_02hP3bsgTaEERUyy_hKzASQFGRz2Df3h5L_wE",
   },
 };
 
@@ -63,16 +64,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("zad_theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme:dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning={true}
         className={`${notoSans.variable} ${amiri.variable} ${arefRuqaa.variable}  font-sans antialiased `}
       >
         <ThemeProvider>
-          <Header />
+          <SidebarProvider>
+            <Header />
 
-          <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen">{children}</main>
 
-          <Footer />
+            <Footer />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

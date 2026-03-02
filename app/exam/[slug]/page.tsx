@@ -24,7 +24,7 @@ export default async function ExamPage({
   let hadithSections;
   let bookSlug;
   let currentHadithId;
-  let examSlugs: Record<string, string> = {};
+  const examSlugs: Record<string, string> = {};
 
   if (parts) {
     bookSlug = parts[1];

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useSidebar } from "@/providers/SidebarProvider";
 import IntroSection from "@/components/sections/IntroSection";
 import { CourseData } from "@/lib/types/types";
 
@@ -28,7 +29,8 @@ export default function HadithViewer({
   hadithExamSlugs = {},
 }: HadithViewerProps) {
   const { info, content: bookContent } = data;
-  const { darkMode, isSidebarOpen, setIsSidebarOpen } = useTheme();
+  const { darkMode } = useTheme();
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
 
   const [activeSection, setActiveSection] = useState("intro");
   const [readHadiths, setReadHadiths] = useState<string[]>([]);

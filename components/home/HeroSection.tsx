@@ -3,18 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-// قمنا بإضافة أيقونة Download هنا
-import { BookOpen, Calendar, Download } from "lucide-react"; 
+
+import { BookOpen, Calendar, Download } from "lucide-react";
 import SadqaBadge from "@/components/ui/SadqaBadge";
+import { useTheme } from "@/providers/ThemeProvider";
 
 import { Quotes } from "@/lib/dailyQuotes";
 
-const darkImg = "/landingDark.png";
-const lightImg = "/landing.png";
+const darkImg = "/landingDark.avif";
+const lightImg = "/landing.avif";
 
 const dailyQuotes = Quotes;
 
-export default function HeroSection({ darkMode }: { darkMode: boolean }) {
+export default function HeroSection() {
+  const { darkMode } = useTheme();
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const [data] = useState(() => {
@@ -84,7 +86,6 @@ export default function HeroSection({ darkMode }: { darkMode: boolean }) {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 md:pt-4">
-          {/* الزر الأساسي */}
           <Link
             href="/hadiths/arbaeen"
             className="group px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-2xl shadow-lg hover:shadow-amber-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 font-bold text-base md:text-lg w-full sm:w-auto"
@@ -93,7 +94,6 @@ export default function HeroSection({ darkMode }: { darkMode: boolean }) {
             <span>الأربعين النووية لإبن عثيمين</span>
           </Link>
 
-          {/* الزر الجديد: تحميل تطبيق منطوق */}
           <a
             href="https://play.google.com/store/apps/details?id=ca.basira.mantooqapp"
             target="_blank"
