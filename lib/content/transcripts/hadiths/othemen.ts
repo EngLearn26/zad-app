@@ -1,7 +1,7 @@
 import { CourseInfo, Section, ExamQuestion } from "../../../types/types";
 
 export const infoAbnothemen: CourseInfo = {
-  title: "شرح الأربعين النووية",
+  title: " شرح الأربعين النووية",
   desc: "شرح نفيس للعلامة محمد بن صالح العثيمين، يوضح معاني جوامع كلم النبي ﷺ، ويستنبط منها الفوائد والأحكام بأسلوب ميسر وعلم رصين.",
   bookLink:
     "https://drive.google.com/file/d/1ZOzwqAW9wpDpO4fOKe0Pw2FOFNd_vfAg/view?usp=sharing",
